@@ -9,11 +9,25 @@ client.on("ready", () => {
 client.on("message", (message) => {
 
   if (message.author.id === config.Rival) {
-    var rivalReact = ['👎','🇮','🔪','🇺'];
-      for (i = 0; i < rivalReact.length; i++){
-          message.react(rivalReact[i])
-      }
+    message.react('👎');
 
+    setTimeout( function(){
+      message.react('🇮');
+    }, 500);
+
+    setTimeout( function(){
+      message.react('🔪');
+    }, 1000);
+
+    setTimeout( function(){
+      message.react('🇺');
+    }, 1500);
+
+
+    //var rivalReact = ['👎','🇮','🔪','🇺'];
+      //for (i = 0; i < rivalReact.length; i++){
+        //  message.react(rivalReact[i])
+      //}
   }
 
   if (message.author.bot) return;
@@ -33,12 +47,16 @@ const command = args.shift().toLowerCase();
 
   if (command === "help") {
     var helptext = `HELP: The prefix is \" ${config.prefix} \" ` +
-    "```\nValid Commands:\n\nping\nidk haven't got this far yet```";
+    "```\nValid Commands:\n\nping\ngoodbot```";
     message.channel.send(helptext)
   }
 
   if (command === "ping") {
     message.channel.send("pong!");
+  }
+
+  if (command === "goodbot") {
+    message.channel.send(`Thanks <@${message.author.id}>! 😇`);
   }
 
   if (message.author.id === config.ownerID) {

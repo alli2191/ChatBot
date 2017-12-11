@@ -7,20 +7,23 @@ client.on("ready", () => {
 });
 
 client.on("message", (message) => {
+
   if (message.author.id === config.Rival) {
-    const downthumb = emoji.find('thumbsdown');
-    message.react(downthumb)
+    var rivalReact = ['👎','🇮','🔪','🇺'];
+      for (i = 0; i < rivalReact.length; i++){
+          message.react(rivalReact[i])
+      }
+
   }
+
   if (message.author.bot) return;
-
-
 
 // Anything after this requires the prefix to respond
   if (!message.content.startsWith(config.prefix)) return;
 
 // Don't respond to James
   if(message.author.id === config.James) {
-    message.channel.send(`go away ${message.author.username}`)
+    message.channel.send(`go away <@${config.James}>`)
     return
   }
 
@@ -28,17 +31,18 @@ client.on("message", (message) => {
 const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
 const command = args.shift().toLowerCase();
 
+  if (command === "help") {
+    var helptext = `HELP: The prefix is \" ${config.prefix} \" ` +
+    "```\nValid Commands:\n\nping\nidk haven't got this far yet```";
+    message.channel.send(helptext)
+  }
 
   if (command === "ping") {
     message.channel.send("pong!");
-  } else
-
-  if (command === "foo") {
-    message.channel.send("bar!");
   }
 
   if (message.author.id === config.ownerID) {
-    message.channel.send(`oi ${message.author.username}`)
+    message.channel.send(`oi <@${config.ownerID}>`)
   }
 
 });

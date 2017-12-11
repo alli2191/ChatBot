@@ -22,12 +22,6 @@ client.on("message", (message) => {
     setTimeout( function(){
       message.react('🇺');
     }, 1500);
-
-
-    //var rivalReact = ['👎','🇮','🔪','🇺'];
-      //for (i = 0; i < rivalReact.length; i++){
-        //  message.react(rivalReact[i])
-      //}
   }
 
   if (message.author.bot) return;

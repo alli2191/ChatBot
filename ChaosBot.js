@@ -7,6 +7,10 @@ client.on("ready", () => {
 });
 
 client.on("message", (message) => {
+  if (message.author.id === config.Rival) {
+    const downthumb = emoji.find('thumbsdown');
+    message.react(downthumb)
+  }
   if (message.author.bot) return;
 
 

@@ -8,6 +8,7 @@ client.on("ready", () => {
 
 client.on("message", (message) => {
 
+// Reactions to James' bot
   if (message.author.id === config.Rival) {
     message.react('👎');
 
@@ -24,6 +25,7 @@ client.on("message", (message) => {
     }, 1500);
   }
 
+// Ignore self and bots
   if (message.author.bot) return;
 
 // Anything after this requires the prefix to respond

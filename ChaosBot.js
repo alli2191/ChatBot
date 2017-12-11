@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const config = require("./config.json");
 
 client.on("ready", () => {
-  console.log("Hello World!");
+  console.log(" Hello World!");
 });
 
 client.on("message", (message) => {
@@ -47,7 +47,7 @@ const command = args.shift().toLowerCase();
 
   if (command === "goodbot") {
     message.channel.send(`Thanks <@${message.author.id}>! 😇`);
-    console.log('Complimented!');
+    console.log(' Complimented!');
   }
 
 // Start Purge
@@ -63,13 +63,13 @@ const command = args.shift().toLowerCase();
         if (isNaN(amount) || amount < 2) return message.reply('Must specify an amount (2-50) to delete!');
 
         if (user.id === message.author.id) {amount = amount + 1;}
-        console.log(`Preparing to delete ${amount} messages (including sent message)`);
+        console.log(` Preparing to delete ${amount} messages (including sent message)`);
 
         // Prevent excess deletion
         if (amount > 51) {excessDeletion = true;}
         if (excessDeletion === true) {
           amount = 51;
-          console.log("Reduced to 51 (actually 50)");
+          console.log(" Reduced to 51 (actually 50)");
         }
 
         // If User Specified

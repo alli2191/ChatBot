@@ -16,6 +16,9 @@ client.on("message", (message) => {
   if (message.content.startsWith(config.prefix + "foo")) {
     message.channel.send("bar!");
   }
+  if(message.author.id == "376906570296197123") {
+    message.react("❤");
+  }
 });
 
 client.login(config.token);

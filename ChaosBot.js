@@ -1,13 +1,19 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
+var poll = require("./poll.js");
+
 
 client.on("ready", () => {
   console.log(" Hello World!");
+      // Hello
+      //poll.sayHelloInEnglish();
 });
+
 
 client.on("message", (message) => {
 
+// Abuse the rival bot
   if (message.author.id === config.Rival) {
     let i = 50; let incr = 500;
     setTimeout( function(){message.react('👎');}, i);
@@ -26,10 +32,10 @@ client.on("message", (message) => {
   if (!message.content.startsWith(config.prefix)) return;
 
 // Don't respond to James
-  if(message.author.id === config.James) {
-    message.channel.send(`go away <@${config.James}>. just kidding.`)
+  //if(message.author.id === config.James) {
+    //message.channel.send(`go away <@${config.James}>. just kidding.`)
     //return
-  }
+  //}
 
 // Bot Commands
 const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
@@ -50,6 +56,12 @@ const command = args.shift().toLowerCase();
     console.log(' Complimented!');
   }
 
+  if (command === 'poll') {
+    message.react(`👍`);
+    message.react(`👎`);
+    poll.run(message,config);
+  }
+
 // Start Purge
     if (command === "purge") {
 
@@ -62,7 +74,7 @@ const command = args.shift().toLowerCase();
         // Invalid input errors
         if (isNaN(amount) || amount < 2) return message.reply('Must specify an amount (2-50) to delete!');
 
-        if (user.id === message.author.id) {amount = amount + 1;}
+        if (user && user.id === message.author.id) {amount = amount + 1;} else if (!user) {amount = amount + 1;}
         console.log(` Preparing to delete ${amount} messages (including sent message)`);
 
         // Prevent excess deletion

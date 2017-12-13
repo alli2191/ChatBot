@@ -1,5 +1,6 @@
 // poll.js
 const Discord = require('discord.js')
+var purge = require("./purge.js");
 
 var exports = module.exports = {};
 
@@ -16,6 +17,10 @@ exports.run = function(client, msg, config) {
   if (questionMarks !== 1) {
     return msg.reply(' please include one, and only one, question mark in your poll.')
   }
+
+  //Delete original message
+  let args = ['botcall', '1'];
+  purge.run(client, msg, config, args);
 
   let msgQuestion = messageContent.split('?').shift()+"?";
   let getTime = messageContent.split('?').pop();

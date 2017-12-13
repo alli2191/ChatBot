@@ -7,7 +7,12 @@ exports.run = function(client, message, config, args) {
     if(message.author.id === config.ownerID || message.author.id === config.James || message.author.id === config.Jesse) {
 
       var excessDeletion = false;
-      const user = message.mentions.users.first();
+      var user = message.mentions.users.first();
+
+      if (args[0] === 'botcall') {
+        user = message.author;
+      }
+
       let amount = parseInt(args[args.length - 1],10);
 
       // Invalid input errors

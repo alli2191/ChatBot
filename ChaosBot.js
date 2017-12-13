@@ -74,9 +74,7 @@ const command = args.shift().toLowerCase();
   }
 
   if (command === 'poll') {
-
     poll.run(client,message,config,message.client);
-
   }
 
 // Start Purge

@@ -59,7 +59,7 @@ const command = args.shift().toLowerCase();
     const embed = new Discord.RichEmbed()
     .setColor('#27ae60')
     .addField("Rules!", "Rule #1: Don't make fun of God or Jesus! \n" +
-    "Rule #2: Respect my wife!", false)
+    `Rule #2: Respect @SkyRipper's wife!`, false)
     message.channel.send({embed})
   }
 

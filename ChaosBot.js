@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
-//var poll = require("./poll.js");
+var poll = require("./poll.js");
 
 
 client.on("ready", () => {
@@ -13,7 +13,7 @@ client.on("ready", () => {
 
 client.on("message", (message) => {
 
-// Abuse the rival bot
+/* Abuse the rival bot
   if (message.author.id === config.Rival) {
     let i = 50; let incr = 500;
     setTimeout( function(){message.react('👎');}, i);
@@ -24,6 +24,7 @@ client.on("message", (message) => {
     i += incr;
     setTimeout( function(){message.react('🇺');}, i);
   }
+*/
 
 // Prevent bot-ception
   if (message.author.bot) return;
@@ -56,11 +57,11 @@ const command = args.shift().toLowerCase();
     console.log(' Complimented!');
   }
 
-//  if (command === 'poll') {
-//    message.react(`👍`);
-//    message.react(`👎`);
-//    poll.run(message,config);
-//  }
+  if (command === 'poll') {
+
+    poll.run(client,message,config,message.client);
+
+  }
 
 // Start Purge
     if (command === "purge") {

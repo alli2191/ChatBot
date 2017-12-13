@@ -3,68 +3,49 @@ const Discord = require('discord.js')
 
 var exports = module.exports = {};
 
-//exports.sayHelloInEnglish = function() {
-//  return console.log("Hello");
-//};
+exports.run = function(client, message, config) {
 
-exports.run = function(message,config) {
+  let i = 0; let I = 500;
+  var defaultVoteTime = 60000;
+  let pollCreator = message.author.username;
+  let messageContent = message.content.slice(config.prefix.length + 4);
+  let getTime = message.content.slice(-1)[0];
+  let voteTime = getTime * defaultVoteTime;
+  const embed = new Discord.RichEmbed()
+  .setColor('#27ae60')
+  .addField("Poll Posted by: " + pollCreator, messageContent, false)
+  .setFooter("You have " + getTime + " minute(s) to vote. Hurry!")
+  message.channel.send({embed}).then(function (reply) {
+    // Adds the reactions the the message
+    setTimeout( function() { reply.react('👍'); }, i, i+=I);
+    setTimeout( function() { reply.react('👎'); }, i, i+=I);
 
-  const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-  let timer = parseInt(args[1],10);
-  //let thumbsUp = 0;
-  //let thumbsDown = 0;
+    // The Yes vote.
+    var collecterYesUsers;
+    const collectorYes = reply.createReactionCollector(
+      (reaction, user) => reaction.emoji.name === '👍', { time: voteTime }
+    );
+    collectorYes.on('collect', r => console.log(r.emoji.name));
+    collectorYes.on('end', collected => collecterYesUsers = collectorYes.users.array());
 
-  // Invalid input errors
-  if (isNaN(timer) || timer < 1 || timer > 1000) return message.reply('must be between 1 and 1000 minutes');
-  console.log(' timer is ' + timer + ' minutes.')
+    // The No vote.
+    var collecterNoUsers;
+    const collectorNo = reply.createReactionCollector(
+      (reaction, user) => reaction.emoji.name === '👎', { time: voteTime }
+    );
+    collectorNo.on('collect', r => console.log(r.emoji.name));
+    collectorNo.on('end', collected => collecterNoUsers = collectorNo.users.array());
 
-  //Convert timer from minutes to ms
-  timer = timer * 60000;
-
-
-  const thumbsUp = await message2.awaitReactions(reaction => reaction.name === "👍", (time: timer));
-  console.log('thumbsUp ' + thumbsUp);
-
-  //findUp = [message.reactions.find(reaction => reaction.emoji.name === '👍')];
-  //findDown = [message.reactions.find(reaction => reaction.emoji.name === '👎')];
-  //thumbsUp = findUp.count;
-  //thumbsDown = findDown.count;
-
-  //console.log('Find Up: ' + findUp);
-  //console.log('Find Down: ' + findDown);
-  //console.log('Thumbsup: ' + thumbsUp);
-  //console.log('Thumbsdown:' + thumbsDown);
-
-
-  message.channel.send(`${thumbsUp} people say yes, ${thumbsDown} people say no.`).then((msg)=>{
-
-    var start = Date.now();
-
-    setInterval(function() {
-      var timeElapsed = Date.now() - start;
-      // timeElapsed in ms
-    }, 1000);
-
-    var currentCount = message.reactions.count;
-    var i = 0;
-
-    while (i < timer) {
-
-      if (message.reactions.count > currentCount) {
-
-        thumbsUp = [message.reactions.find(reaction => reaction.emoji.name === '👍')].count;
-        thumbsDown = [message.reactions.find(reaction => reaction.emoji.name === '👎')].count;
-
-        msg.edit(`${thumbsUp} people say yes, ${thumbsDown} people say no.`)
-        console.log(' ' + thumbsUp + ' thumbs up and ' + thumbsDown + ' thumbs down.');
-        currentCount = message.reactions.count;
-
-      }
-
-      i = timeElapsed;
-    }
-
+    // The final Poll Results
+    setTimeout( function() {
+      const embed = new Discord.MessageEmbed()
+      .setColor('#c0392b')
+      .addField("Poll is now over!", messageContent)
+      .addField("Yes Votes: ", collecterYesUsers.length -1, true)
+      .addField("No Votes: ", collecterNoUsers.length -1, true)
+      .setFooter("Poll is now over")
+      message.channel.send({embed})
+    }, voteTime);
   })
-        //await message.react('👍');
-      	//await message.react('👎');
+
 };

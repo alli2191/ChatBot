@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
-var poll = require("./poll.js");
+//var poll = require("./poll.js");
 
 
 client.on("ready", () => {
@@ -56,11 +56,11 @@ const command = args.shift().toLowerCase();
     console.log(' Complimented!');
   }
 
-  if (command === 'poll') {
-    message.react(`👍`);
-    message.react(`👎`);
-    poll.run(message,config);
-  }
+//  if (command === 'poll') {
+//    message.react(`👍`);
+//    message.react(`👎`);
+//    poll.run(message,config);
+//  }
 
 // Start Purge
     if (command === "purge") {

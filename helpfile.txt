@@ -4,6 +4,7 @@
 Valid Commands:
 
 help
+rules
 ping
 goodbot
 poll <question?> <n> --> n is minutes poll should last, default 5

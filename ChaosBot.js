@@ -16,8 +16,7 @@ client.on("message", (message) => {
       let voteTime = getTime * defaultVoteTime;
       const embed = new Discord.MessageEmbed()
       .setColor('#27ae60')
-      .addField("Poll Posted by: " + pollCreator,
-      messageContent, false)
+      .addField("Poll Posted by: " + pollCreator, messageContent, false)
       .setFooter("You have " + getTime + " minute(s) to vote. Hurry!")
       msg.channel.send({embed}).then(function (reply) {
         // Adds the reactions the the message
@@ -44,8 +43,7 @@ client.on("message", (message) => {
         setTimeout( function() {
           const embed = new Discord.MessageEmbed()
           .setColor('#c0392b')
-          .addField("Poll is now over!",
-          messageContent)
+          .addField("Poll is now over!", messageContent)
           .addField("Yes Votes: ", collecterYesUsers.length -1, true)
           .addField("No Votes: ", collecterNoUsers.length -1, true)
           .setFooter("Poll is now over")

@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
+const fs = require("fs");
 const client = new Discord.Client();
 const config = require("./config.json");
+var helpFileLoc = 'helpfile.txt'
 var poll = require("./poll.js");
 
 
@@ -13,18 +15,20 @@ client.on("ready", () => {
 
 client.on("message", (message) => {
 
-/* Abuse the rival bot
+//Abuse or befriend the rival bot
   if (message.author.id === config.Rival) {
     let i = 50; let incr = 500;
     setTimeout( function(){message.react('👎');}, i);
+    /*
     i += incr;
     setTimeout( function(){message.react('🇮');}, i);
     i += incr;
     setTimeout( function(){message.react('🔪');}, i);
     i += incr;
     setTimeout( function(){message.react('🇺');}, i);
+    */
   }
-*/
+
 
 // Prevent bot-ception
   if (message.author.bot) return;
@@ -33,19 +37,22 @@ client.on("message", (message) => {
   if (!message.content.startsWith(config.prefix)) return;
 
 // Don't respond to James
-  //if(message.author.id === config.James) {
-    //message.channel.send(`go away <@${config.James}>. just kidding.`)
+  /*if(message.author.id === config.James) {
+    message.channel.send(`go away <@${config.James}>. just kidding.`)
     //return
-  //}
+  }*/
 
 // Bot Commands
 const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
 const command = args.shift().toLowerCase();
 
   if (command === "help") {
-    var helptext = `HELP: The prefix is \" ${config.prefix} \" ` +
-    "```\nValid Commands:\n\nping\ngoodbot\npurge @name (optional) n\n```";
-    message.channel.send(helptext)
+    fs.readFile(helpFileLoc, 'utf8', function (err,helpdata) {
+    if (err) {
+      return console.log(err);
+    }
+    message.channel.send(helpdata + `\n The prefix is currently \" ${config.prefix} \" `);
+    });
   }
 
   if (command === "ping") {

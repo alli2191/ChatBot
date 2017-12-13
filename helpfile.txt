@@ -1,0 +1,12 @@
+﻿```
+---- HELP FILE ----
+
+Valid Commands:
+
+help
+ping
+goodbot
+poll <question?> <n> --> n is minutes poll should last, default 5
+purge <@name> <n> --> @name is optional; n is # of messages to delete
+
+```

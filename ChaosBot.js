@@ -18,7 +18,7 @@ client.on("message", (message) => {
 //Abuse or befriend the rival bot
   if (message.author.id === config.Rival) {
     let i = 50; let incr = 500;
-    setTimeout( function(){message.react('👎');}, i);
+    setTimeout( function(){message.react('💖');}, i);
     /*
     i += incr;
     setTimeout( function(){message.react('🇮');}, i);
